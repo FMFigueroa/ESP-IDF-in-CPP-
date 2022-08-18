@@ -12,5 +12,10 @@
   "idf.toolsPathWin": "c:\\Users\\felix\\.espressif",
   "idf.portWin": "COM3",
   "idf.flashType": "UART",
-  "editor.accessibilityPageSize": 14
+  "editor.accessibilityPageSize": 14,
+  "files.associations": {
+    "bitset": "cpp",
+    "chrono": "cpp",
+    "algorithm": "cpp"
+  }
 }

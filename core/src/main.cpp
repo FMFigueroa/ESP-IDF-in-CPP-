@@ -41,23 +41,23 @@ void Main::loop(void)
     {
         vTaskDelay(pdSECOND);
 
-        if (count > 30)
+        switch (count)
         {
-            count = 0;
-        }
-        if (count < 10)
-        {
+        case count < 10:
             ESP_LOGI(LOG_TAG, "Hello World!🚀");
-        }
-        if (count >= 10 && count < 20)
-        {
-            ESP_LOGW(LOG_TAG, "Hello World!🚀");
-        }
-        if (count >= 20)
-        {
+            break;
+        case count < 10:
+            EP_LOW(LOG_TAG, "Hello World!🚀");
+            break;
+        case count > 10 && <= 20:
             ESP_LOGE(LOG_TAG, "Hello World!🚀");
+            break;
+        case count > 30:
+            count = 0;
+            break;
+        default:
+            break;
         }
-
         ++count;
     }
 }
