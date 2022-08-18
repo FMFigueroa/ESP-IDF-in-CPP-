@@ -23,10 +23,9 @@ Below is short explanation of remaining files in the project folder.
  * @date 2022-08-17
  *
  * @copyright Copyright (c) 2022
- *
  */
 //=====================================================================================\\
-//=====================================================================================\\
+│
 ├── CMakeLists.txt
 ├── core
 │   │── include
