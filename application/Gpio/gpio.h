@@ -4,9 +4,12 @@
 
 namespace GPIO
 {
-
+    
     class GpioBase
     {
+        const gpio_num_t _pin;
+        const bool _inverted_logic = false;
+        const gpio_config_t _cfg;
     public:
     }; // GpioBase
 
@@ -25,20 +28,18 @@ namespace GPIO
 
             }
         esp_err_t init(void);
-        
         esp_err_t set(const bool state);
         esp_err_t toggle(void);
         bool state(void) { return _state; }
     }
 
-    gpio_pin_t _pin; //memory
-    const bool _inverter_logic = false;
-        
     class GpioInput
     {
-        eps_err_t init(void);
+         gpio_pin_t _pin; //memory
+        const bool _inverter_logic = false;
         
         public:
+            eps_err_t init(void);
             bool state(void);
     };
 
