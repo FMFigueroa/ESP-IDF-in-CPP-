@@ -2,22 +2,23 @@
 
 #include "driver/gpio.h"
 
-namespace GPIO
+namespace Gpio
 {
     
     class GpioBase
     {
+    protected:
         const gpio_num_t _pin;
         const bool _inverted_logic = false;
         const gpio_config_t _cfg;
-    public:
-        //Constructor
-        constexpre GipoBase(const gpio_num_t _pin,
+
+    public:  //Constructor
+        constexpr GpioBase(const gpio_num_t pin,
                     const gpio_config_t& config, 
-                    const bool _inverted_logic = false) :
+                    const bool inverted_logic = false) :
             _pin{pin},
-            _cfg{config},
-            _inverted_logic{inverted_logic}
+            _inverted_logic{inverted_logic},
+            _cfg{config}
         {
 
         }
@@ -29,34 +30,39 @@ namespace GPIO
 
     }; // GpioBase
 
-    class GpioOutput
+    class GpioOutput : public GpioBase
     {
-        const gpio_num_t _pin;
-        bool _state = false;
-        const bool _inverted_logic = false;
+        bool _state = false; //map the users wish
 
-    public:
-        //Constructor
-        constexpre GipoOutput(const gpio_num_t pin, const bool invert = false) : 
-            _inverted_logic{invert},
-            _pin{pin}
+    public:  //Constructor
+        constexpr GpioOutput(const gpio_num_t pin, const bool invert = false) : 
+            GpioBase{pin,
+                    gpio_config_t{
+                        .pin_bit_mask = static_cast<uint64_t>(1) << pin,
+                        .mode         = GPIO_MODE_OUTPUT,
+                        .pull_up_en   = GPIO_PULLUP_DISABLE,
+                        .pull_down_en = GPIO_PULLDOWN_ENABLE,
+                        .intr_type    = GPIO_INTR_DISABLE
+                    },
+                    invert}
         {
 
         }
-        esp_err_t init(void);
+        [[nodiscard]] esp_err_t init(void);
         esp_err_t set(const bool state);
-        esp_err_t toggle(void);
-        bool state(void) {return _state};
-    }
+        //esp_err_t toggle(void);
+        bool state(void) {return _state;}
 
-    class GpioInput
+    };// GpioOutput
+
+    /* class GpioInput
     {
-         gpio_pin_t _pin; //memory
+         gpio_num_t _pin; //memory
         const bool _inverter_logic = false;
         
         public:
             eps_err_t init(void);
             bool state(void);
-    };
+    }; */
 
-} // namespace GPIO
+} // namespace Gpio

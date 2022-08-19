@@ -1,8 +1,10 @@
-# ESP-IDF in CPP: Hello World + Led Blink!
+# ESP-IDF in C++: Hello World + Led Blink!
+
+## Led Blink is a component class called Gpio programmed in C++. 
 
 The project **Hello World** contains one source file in C++ language [main.cpp](./core/src/main.cpp) and one header file [main.h](./core/include/main.h). The files are located in the folder [core](./core).
 
-It also has a component called GPIO inside the application module, this component controls the Led Blink, you can see more details here: [gpio.cpp](./application/gpio/gpio.cpp) and one header file [gpio.h](./application/gpio/gpio.h).
+It also has a component called Gpio inside the application module, this component controls the Led Blink, you can see more details here: [Gpio.cpp](./application/Gpio/Gpio.cpp) and one header file [Gpio.h](./application/Gpio/Gpio.h).
 
 
 ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
@@ -36,9 +38,11 @@ Below is short explanation of remaining files in the project folder.
 │   └── CMakeLists.txt
 │
 ├── application
-│   └── gpio
-│       │── gpio.h
-│       └── gpio.cpp  
+│   │── Gpio
+│   │    │── Gpio.h
+│   │    └── Gpio.cpp
+│   │
+│   └── CMakeLists.txt  
 │
 └── README.md                  This is the file you are currently reading
 ```

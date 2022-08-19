@@ -15,7 +15,7 @@
 #define LOG_TAG "MAIN"
 
 static Main my_main;
-u_int count = 0;
+int count = 0;
 
 extern "C" void app_main(void)
 {
@@ -32,32 +32,38 @@ esp_err_t Main::setup(void)
 {
     esp_err_t status{ESP_OK};
     ESP_LOGW(LOG_TAG, "Setup function oK 👌");
+    status |= led.init();
     return status;
 }
 
 void Main::loop(void)
 {
     while (true)
-    {
+    {   
+        ESP_LOGI(LOG_TAG, "LED on ");
+        led.set(true);
         vTaskDelay(pdSECOND);
 
         switch (count)
         {
-        case count < 10:
-            ESP_LOGI(LOG_TAG, "Hello World!🚀");
-            break;
-        case count < 10:
-            EP_LOW(LOG_TAG, "Hello World!🚀");
-            break;
-        case count > 10 && <= 20:
-            ESP_LOGE(LOG_TAG, "Hello World!🚀");
-            break;
-        case count > 30:
-            count = 0;
-            break;
-        default:
-            break;
+            case 2:
+                ESP_LOGW(LOG_TAG, "Hello World!🚀");
+                break;
+            case 3:
+                ESP_LOGW(LOG_TAG, "Hello World!🔥");
+                break;
+            case 4:
+                ESP_LOGW(LOG_TAG, "Hello World!😎");
+                count = 0;
+                break;
+            default:
+                break;  
         }
+
+        ESP_LOGE(LOG_TAG, "LED off");
+        led.set(false);
+        vTaskDelay(pdSECOND);
+
         ++count;
     }
 }
