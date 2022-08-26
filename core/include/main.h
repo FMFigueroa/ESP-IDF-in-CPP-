@@ -4,6 +4,9 @@
 #include "freertos/task.h"
 #define pdSECOND pdMS_TO_TICKS(700)
 
+#include "esp_event.h"
+#include "nvs_flash.h"
+
 #include "Gpio.h"
 
 class Main final

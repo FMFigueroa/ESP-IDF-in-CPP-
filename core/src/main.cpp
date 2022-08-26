@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2022
  *
  */
-#include "main.h"
+#include "main.h"   
 // Deficion de un nivel de registro local antes de usar "esp_log.h"
 #define LOG_LEVEL_LOCAL ESP_LOG_VERBOSE
 #include "esp_log.h"
@@ -19,6 +19,11 @@ int count = 0;
 
 extern "C" void app_main(void)
 {
+    ESP_LOGI(LOG_TAG, "Initialising NVS");
+    ESP_ERROR_CHECK(nvs_flash_init());
+
+    ESP_LOGI(LOG_TAG, "Creating default event loop");
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
 
     ESP_ERROR_CHECK(my_main.setup());
 
@@ -39,25 +44,25 @@ esp_err_t Main::setup(void)
 void Main::loop(void)
 {
     while (true)
-    {   
+    {
         ESP_LOGI(LOG_TAG, "LED on ");
         led.set(true);
         vTaskDelay(pdSECOND);
 
         switch (count)
         {
-            case 2:
-                ESP_LOGW(LOG_TAG, "Hello World!🚀");
-                break;
-            case 3:
-                ESP_LOGW(LOG_TAG, "Hello World!🔥");
-                break;
-            case 4:
-                ESP_LOGW(LOG_TAG, "Hello World!😎");
-                count = 0;
-                break;
-            default:
-                break;  
+        case 2:
+            ESP_LOGW(LOG_TAG, "Hello World!🚀");
+            break;
+        case 3:
+            ESP_LOGW(LOG_TAG, "Hello World!🔥");
+            break;
+        case 4:
+            ESP_LOGW(LOG_TAG, "Hello World!😎");
+            count = 0;
+            break;
+        default:
+            break;
         }
 
         ESP_LOGE(LOG_TAG, "LED off");
